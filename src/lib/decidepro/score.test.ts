@@ -31,7 +31,30 @@ describe("DecidePro scoring", () => {
     const score = weightedScore(ratings(5, 4, 3, 2, 1));
     assert.equal(score, 67);
     assert.equal(formatScore(score!), "67.00");
+  
+  it("RELAY edge — identical ratings: equal scores, gap 0.00, near-tie, order A B C", () => {
+    const same = ratings(4, 3, 3, 2, 2);
+    const decision = computeDecision([
+      alt("a", "Idea A", same),
+      alt("b", "Idea B", same),
+      alt("c", "Idea C", same),
+    ]);
+    assert.equal(decision.ok, true);
+    if (!decision.ok) return;
+    assert.equal(decision.ranked[0].score, decision.ranked[1].score);
+    assert.equal(decision.ranked[1].score, decision.ranked[2].score);
+    assert.equal(decision.gap, 0);
+    assert.equal(decision.nearTie, true);
+    assert.deepEqual(
+      decision.ranked.map((row) => row.name),
+      ["Idea A", "Idea B", "Idea C"],
+    );
+    assert.deepEqual(
+      decision.ranked.map((row) => row.id),
+      ["a", "b", "c"],
+    );
   });
+});
 
   it("TEST 4 — rank order B > A > C", () => {
     const decision = computeDecision([
@@ -152,5 +175,28 @@ describe("DecidePro scoring", () => {
     for (const n of [0, 6, -1, 1.5, 3.1, "5", null, undefined]) {
       assert.equal(isValidRating(n), false);
     }
+  });
+
+  it("RELAY edge — identical ratings: equal scores, gap 0.00, near-tie, order A B C", () => {
+    const same = ratings(4, 3, 3, 2, 2);
+    const decision = computeDecision([
+      alt("a", "Idea A", same),
+      alt("b", "Idea B", same),
+      alt("c", "Idea C", same),
+    ]);
+    assert.equal(decision.ok, true);
+    if (!decision.ok) return;
+    assert.equal(decision.ranked[0].score, decision.ranked[1].score);
+    assert.equal(decision.ranked[1].score, decision.ranked[2].score);
+    assert.equal(decision.gap, 0);
+    assert.equal(decision.nearTie, true);
+    assert.deepEqual(
+      decision.ranked.map((row) => row.name),
+      ["Idea A", "Idea B", "Idea C"],
+    );
+    assert.deepEqual(
+      decision.ranked.map((row) => row.id),
+      ["a", "b", "c"],
+    );
   });
 });

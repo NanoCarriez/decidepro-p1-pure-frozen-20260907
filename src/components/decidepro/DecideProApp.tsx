@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Pencil, RotateCcw, Scale } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Pencil, RotateCcw, Scale, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   ALT_META,
@@ -16,6 +16,13 @@ import {
   formatScore,
   type DecisionOk,
 } from "@/lib/decidepro/score";
+import {
+  clearEvaluation,
+  hasMeaningfulEvaluation,
+  loadEvaluation,
+  saveEvaluation,
+  storageKeyPresent,
+} from "@/lib/decidepro/persistence";
 
 const RATINGS: Rating[] = [1, 2, 3, 4, 5];
 
@@ -35,6 +42,31 @@ export function DecideProApp() {
   );
   const [phase, setPhase] = useState<AppPhase>("empty");
   const [decision, setDecision] = useState<DecisionOk | null>(null);
+  const skipPersistRef = useRef(true);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const saved = loadEvaluation();
+    if (saved) {
+      setAlternatives(saved);
+      const next = computeDecision(saved);
+      if (next.ok) {
+        setDecision(next);
+        setPhase(next.nearTie ? "near_tie" : "result");
+      } else {
+        setDecision(null);
+        setPhase("scoring");
+      }
+    }
+    skipPersistRef.current = false;
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated || skipPersistRef.current) return;
+    if (!hasMeaningfulEvaluation(alternatives)) return;
+    saveEvaluation(alternatives);
+  }, [alternatives, hydrated]);
 
   const complete = filledCount(alternatives);
   const showForm = phase !== "result" && phase !== "near_tie";
@@ -102,6 +134,18 @@ export function DecideProApp() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  function handleClearSaved() {
+    skipPersistRef.current = true;
+    clearEvaluation();
+    setAlternatives(initialAlternatives());
+    setDecision(null);
+    setPhase("empty");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    queueMicrotask(() => {
+      skipPersistRef.current = false;
+    });
+  }
+
   const stateLabel = useMemo(() => {
     switch (phase) {
       case "empty":
@@ -122,6 +166,7 @@ export function DecideProApp() {
       className="min-h-dvh bg-bg text-ink"
       data-testid="decidepro-root"
       data-app-phase={phase}
+      data-storage-present={storageKeyPresent() ? "true" : "false"}
     >
       <header className="border-b border-border bg-bg/90 px-4 py-4 backdrop-blur-sm">
         <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
@@ -136,15 +181,26 @@ export function DecideProApp() {
               <p className="text-xs text-muted">{stateLabel}</p>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={handleReset}
-            data-testid="btn-reset"
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-sm font-medium text-muted transition-colors duration-150 hover:bg-surface hover:text-ink"
-          >
-            <RotateCcw className="size-4" aria-hidden />
-            Reiniciar
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={handleClearSaved}
+              data-testid="btn-clear-saved"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-sm font-medium text-muted transition-colors duration-150 hover:bg-surface hover:text-ink"
+            >
+              <Trash2 className="size-4" aria-hidden />
+              Borrar datos guardados
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              data-testid="btn-reset"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-sm font-medium text-muted transition-colors duration-150 hover:bg-surface hover:text-ink"
+            >
+              <RotateCcw className="size-4" aria-hidden />
+              Reiniciar
+            </button>
+          </div>
         </div>
       </header>
 
