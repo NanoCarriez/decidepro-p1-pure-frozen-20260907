@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "DecidePro",
+      "hasCanvas": false,
+      "bodyTextLen": 700,
+      "bodyTextHash": "d9ccf534e9e1a6cede2d8eca900499364369afdd6d460d7d1839f9b104d40208",
+      "bodyTextPrefix": "DecidePro inicio Reiniciar MATRIZ PONDERADA Tres ideas. Una prio",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "DecidePro",
+      "hasCanvas": false,
+      "bodyTextLen": 700,
+      "bodyTextHash": "d9ccf534e9e1a6cede2d8eca900499364369afdd6d460d7d1839f9b104d40208",
+      "bodyTextPrefix": "DecidePro inicio Reiniciar MATRIZ PONDERADA Tres ideas. Una prio",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}

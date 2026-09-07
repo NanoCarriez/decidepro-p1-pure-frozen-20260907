@@ -1,0 +1,76 @@
+{
+  "snapshot_id": "01314fa7ed72f5e63e23fdfdaec46f36f3747b20e7e30636ef74b5e5965a0bc9",
+  "file_count": 14,
+  "files": [
+    {
+      "path": "src/lib/decidepro/index.ts",
+      "sha256": "445230eacc899aaab85e2b8e00b24bb9106db3e8d6acb12bfdb3629affd1a61a",
+      "bytes": 56
+    },
+    {
+      "path": "src/lib/decidepro/model.ts",
+      "sha256": "40e61fabdb660abf944b0e584cfbb65f7e4b191747e77cee873efe2d953e7871",
+      "bytes": 1546
+    },
+    {
+      "path": "src/lib/decidepro/score.test.ts",
+      "sha256": "ecbce34d96610e121e80c7e77a61b241aa08e375acaef4c83b8c6cf7ad5a701d",
+      "bytes": 5436
+    },
+    {
+      "path": "src/lib/decidepro/score.ts",
+      "sha256": "31a1f277687d39b62641d875a130155ec665ffc6a64c07f0dc770a98d9408e54",
+      "bytes": 5303
+    },
+    {
+      "path": "src/components/decidepro/DecideProApp.tsx",
+      "sha256": "c3d08132072c684b8da32861afd44a053a639155150a944feb21e44ce98f2fdf",
+      "bytes": 15962
+    },
+    {
+      "path": "src/routes/__root.tsx",
+      "sha256": "777c043ea8e0063e5ad319d8f855f1c9956207c62e1a416b515fefc3e3f13efe",
+      "bytes": 1257
+    },
+    {
+      "path": "src/routes/index.tsx",
+      "sha256": "fd42687c683140c64d7478e5725c5b775629ac18e539e76683aea8d12ad2d148",
+      "bytes": 239
+    },
+    {
+      "path": "src/router.tsx",
+      "sha256": "b3418d117d99e4e47f8c26f90eaa972b3732214b133a7052591e6b2907090752",
+      "bytes": 272
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "d36ee0c941818f29ccc6a532887ac8056732486aa38480fc8e2b22aefdaedff4",
+      "bytes": 1246
+    },
+    {
+      "path": "src/lib/og/site.json",
+      "sha256": "da8023cf961e02c461ee6ca94afdbd96c942f3c566d6e42a606a95be61f345e2",
+      "bytes": 149
+    },
+    {
+      "path": "public/favicon.svg",
+      "sha256": "55361a0c5e10f3e73f2e33dca6493126c2a9313b52ad7a54576940c318cae377",
+      "bytes": 496
+    },
+    {
+      "path": "startup.sh",
+      "sha256": "5f0db062bbfcc0f7e7d1f8cc4302c4d1bf8fa49676457ec3de68cb74b01f80b8",
+      "bytes": 191
+    },
+    {
+      "path": "package.json",
+      "sha256": "f1de476059776b9700a6db7739516a94f6091ede549c3ae67c2acea33129653a",
+      "bytes": 3361
+    },
+    {
+      "path": "scripts/decidepro-mandatory.mjs",
+      "sha256": "e4d7c0c31140fdd47fec224f74dbe674a8d10720129f78705d0985e04581365b",
+      "bytes": 7957
+    }
+  ]
+}
